@@ -7,7 +7,7 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "api")
 @Data
 public class OpenApiProperties {	
-	private Common common = new  Common();
+	private Common common = new Common();
 	
 	@Data
 	public static class Common {        
