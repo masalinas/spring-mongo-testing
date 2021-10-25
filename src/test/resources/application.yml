@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: spring-mongo-testing
+  data:
+    mongodb:
+      host: localhost
+      port: 27018
+      database: test
+
+springdoc:
+  swagger-ui.path: /openapi/swagger-ui.html
+  api-docs.path: /openapi/v3/api-docs
+  packagesToScan: io.oferto.testing
+  pathsToMatch: /**
+  
+api:
+  common:
+    version: 1.0.0
+    title: Mongo API
+    description: Mongo API
+    contact:
+      name: Miguel Salinas Gancedo
+      url: https://oferto.io
+      email: masalinas.gancedo@gmail.com
