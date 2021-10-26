@@ -1,6 +1,7 @@
 package io.oferto.testing.model;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
@@ -25,5 +26,6 @@ public class Product {
 	 @Size(min = 0, max = 20)
 	 private String name;
 	 @NotBlank
+	 @Positive
 	 private float price;
 }
