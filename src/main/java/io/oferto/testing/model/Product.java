@@ -23,7 +23,7 @@ public class Product {
 	 private String id;
 	 
 	 @NotBlank
-	 @Size(min = 0, max = 20)
+	 @Size(min = 1, max = 20)
 	 private String name;
 	 @NotBlank
 	 @Positive
