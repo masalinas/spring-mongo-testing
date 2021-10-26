@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.Mockito;
@@ -24,7 +25,7 @@ import io.oferto.testing.model.Product;
 import io.oferto.testing.service.ProductService;
 
 @WebMvcTest(controllers = ProductController.class)
-class ProductControllerTests {
+class ProductControllerTest {
     @Autowired
     MockMvc mockMvc;
 
@@ -35,7 +36,8 @@ class ProductControllerTests {
 	private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Test get all products")
+    @Tag("Controller tests")
+    @DisplayName("This test verifies get all products")
     void testGetAllProducts() throws Exception {
 		@SuppressWarnings("serial")
 		List<Product> products = new ArrayList<Product>() {{		  
@@ -51,7 +53,8 @@ class ProductControllerTests {
     }
     
     @Test
-    @DisplayName("Test get by product id")
+    @Tag("Controller tests")
+    @DisplayName("This test verifies get by product id")
     void testGetProductById() throws Exception {
 		Product product = Product.builder().id("a").name("Apple").price(0L).build();    	
   
@@ -63,7 +66,8 @@ class ProductControllerTests {
     }
     
     @Test
-    @DisplayName("Test get by product name")
+    @Tag("Controller tests")
+    @DisplayName("This test verifies get by product name")
     void testGetProductByName() throws Exception {
 		Product product = Product.builder().id("a").name("Apple").price(0L).build();    	
   

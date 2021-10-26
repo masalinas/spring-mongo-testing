@@ -2,6 +2,8 @@ package io.oferto.testing.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -21,7 +24,7 @@ import io.oferto.testing.model.Product;
 import io.oferto.testing.repository.ProductRepository;
 
 @ExtendWith(MockitoExtension.class)
-class ProductServiceTests {
+class ProductServiceTest {
 	@InjectMocks
 	ProductService productService;
 	
@@ -29,6 +32,7 @@ class ProductServiceTests {
 	private ProductRepository productRepository;
 	 
 	@Test
+	@Tag("Service tests")
 	@DisplayName("Should Return All Products")
     void findAllTest() {
 		@SuppressWarnings("serial")
@@ -43,35 +47,45 @@ class ProductServiceTests {
 				Product.builder().id("b").name("Orange").price(0L).build()
 	    );*/
 		
-		when(productRepository.findAll()).thenReturn(products);
+		when(productRepository.findAll())
+			.thenReturn(products);
 		
 		assertEquals(2, productService.findAll().size());
 	}
 	
 	@Test
+	@Tag("Service tests")
 	@DisplayName("Should Return a Product When Product Id Exist")
     void findByIdOKTest() {		
-		when(productRepository.findById("a")).thenReturn(Optional.of(Product.builder().id("a").name("Apple").price(0L).build()));
+		when(productRepository.findById("a"))
+			.thenReturn(Optional.of(Product.builder().id("a").name("Apple").price(0L).build()));
 		
 		Product product = productService.findById("a");
 		
+		verify(productRepository).findById("a");
+		
 		assertEquals("Apple", product.getName());
 		assertEquals(0L, product.getPrice());
 	}
 	
 	@Test
+	@Tag("Service tests")
 	@DisplayName("Should Return a Product When Product name Exist")
     void findByNameOKTest() {		
-		when(productRepository.findByName("Apple")).thenReturn(Optional.of(Product.builder().id("a").name("Apple").price(0L).build()));
+		when(productRepository.findByName("Apple"))
+			.thenReturn(Optional.of(Product.builder().id("a").name("Apple").price(0L).build()));
 		
 		Product product = productService.findByName("Apple");
+				
+		verify(productRepository).findByName("Apple");
 		
 		assertEquals("Apple", product.getName());
 		assertEquals(0L, product.getPrice());
 	}
 	
 	@Test
-	@DisplayName("Should Throw Product Runtime Exception When Id Does Not Exists")
+	@Tag("Service tests")
+	@DisplayName("Should Throw Product Not Found Exception When Id Does Not Exists")
     void findByIdKOTest() {
 		final String productId = "a";
 		
@@ -82,13 +96,12 @@ class ProductServiceTests {
 	}
 	
 	@Test
-	@DisplayName("Should Throw Product Runtime Exception When name Does Not Exists")
+	@Tag("Service tests")
+	@DisplayName("Should Throw Product Not Found Exception When Name Does Not Exists")
     void findByNameKOTest() {
-		final String name = "Melon";
-		
-		ProductNotFoundException productNotFoundException = assertThrows(ProductNotFoundException.class,
-                () -> productService.findByName(name));
-		
-		assertEquals("No product found for its name: " + name, productNotFoundException.getMessage());		
+		when(productRepository.findByName(any(String.class)))
+		  .thenThrow(new ProductNotFoundException("No product found for its name: Melon"));
+				
+		assertThrows(ProductNotFoundException.class, () -> productService.findByName("Melon"));	
 	}
 }
