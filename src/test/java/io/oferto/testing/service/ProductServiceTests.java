@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import io.oferto.testing.exception.ProductNotFoundException;
 import io.oferto.testing.model.Product;
 import io.oferto.testing.repository.ProductRepository;
 
@@ -74,10 +75,10 @@ class ProductServiceTests {
     void findByIdKOTest() {
 		final String productId = "a";
 		
-		RuntimeException runtimeException = assertThrows(RuntimeException.class,
+		ProductNotFoundException productNotFoundException = assertThrows(ProductNotFoundException.class,
                 () -> productService.findById(productId));
 		
-		assertEquals("No product found for productId: " + productId, runtimeException.getMessage());		
+		assertEquals("No product found for its productId: " + productId, productNotFoundException.getMessage());		
 	}
 	
 	@Test
@@ -85,9 +86,9 @@ class ProductServiceTests {
     void findByNameKOTest() {
 		final String name = "Melon";
 		
-		RuntimeException runtimeException = assertThrows(RuntimeException.class,
+		ProductNotFoundException productNotFoundException = assertThrows(ProductNotFoundException.class,
                 () -> productService.findByName(name));
 		
-		assertEquals("No product found for name: " + name, runtimeException.getMessage());		
+		assertEquals("No product found for its name: " + name, productNotFoundException.getMessage());		
 	}
 }

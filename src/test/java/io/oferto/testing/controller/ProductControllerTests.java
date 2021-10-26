@@ -44,7 +44,7 @@ class ProductControllerTests {
  
         Mockito.when(productService.findAll()).thenReturn(products);
  
-        mockMvc.perform(get("/products").contentType("application/json"))
+        mockMvc.perform(get("/api/products").contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", Matchers.hasSize(1)))
                 .andExpect(jsonPath("$[0].name", Matchers.is("Apple")));
@@ -57,7 +57,7 @@ class ProductControllerTests {
   
 		Mockito.when(productService.findById("a")).thenReturn(product);
 		
-        mockMvc.perform(get("/products/{productId}", "a").contentType("application/json")
+        mockMvc.perform(get("/api/products/{productId}", "a").contentType("application/json")
                 .content(objectMapper.writeValueAsString(product)))
 				.andExpect(status().isOk());
     }
@@ -69,7 +69,7 @@ class ProductControllerTests {
   
 		Mockito.when(productService.findByName("Apple")).thenReturn(product);
 		
-        mockMvc.perform(get("/products/name/{name}", "Apple").contentType("application/json")
+        mockMvc.perform(get("/api/products/name/{name}", "Apple").contentType("application/json")
                 .content(objectMapper.writeValueAsString(product)))
 				.andExpect(status().isOk());
     }

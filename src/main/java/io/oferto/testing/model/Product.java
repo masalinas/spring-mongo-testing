@@ -1,5 +1,8 @@
 package io.oferto.testing.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +20,10 @@ public class Product {
 
 	 @Id 
 	 private String id;
-	 @NonNull
+	 
+	 @NotBlank
+	 @Size(min = 0, max = 20)
 	 private String name;
+	 @NotBlank
 	 private float price;
 }

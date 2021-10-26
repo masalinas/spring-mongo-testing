@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import io.oferto.testing.exception.ProductNotFoundException;
 import io.oferto.testing.model.Product;
 import io.oferto.testing.repository.ProductRepository;
 
@@ -23,11 +24,11 @@ public class ProductService {
 	
     public Product findById(String productId) {
         return productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("No product found for productId: " + productId));
+                .orElseThrow(() -> new ProductNotFoundException("No product found for its productId: " + productId));
     }
     
     public Product findByName(String name) {
         return productRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("No product found for name: " + name));
+                .orElseThrow(() -> new ProductNotFoundException("No product found for its name: " + name));
     }
 }
