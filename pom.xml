@@ -36,8 +36,7 @@
 			  <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 			  <sonar.language>java</sonar.language>			        
 	          <sonar.host.url>http://localhost:9000</sonar.host.url>	         
-	          <sonar.projectKey>testing</sonar.projectKey> 
-	          <sonar.login>3d26d849577ae69d4845a565ab1e677bf6a9ca7e</sonar.login>
+	          <sonar.projectKey>testing</sonar.projectKey>
 	          <sonar.exclusions>
 		    	**/model/*,
 		    	**/dto/*,
