@@ -10,3 +10,6 @@ mvn clean verify sonar:sonar \
 
 # Sonarqube url
 http://localhost:9000
+
+# Sonarqube clous service
+https://sonarcloud.io/
