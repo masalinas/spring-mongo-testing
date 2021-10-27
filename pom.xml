@@ -27,8 +27,26 @@
 	    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 	    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 	    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+	    <sonar.coverage.exclusions>
+	    	**/exception/*	    	                    
+	    </sonar.coverage.exclusions>
 	    <sonar.language>java</sonar.language>		
 	</properties>
+	
+	<profiles>
+		<!-- Sonarqube Profile -->
+	    <profile>
+	        <id>sonar</id>
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>
+	        <properties>
+	          <sonar.host.url>http://localhost:9000</sonar.host.url>	         
+	          <sonar.projectKey>testing</sonar.projectKey> 
+	          <sonar.login>3d26d849577ae69d4845a565ab1e677bf6a9ca7e</sonar.login>
+	        </properties>
+    	</profile>
+	</profiles>
 	
 	<dependencies>
 		<!-- Spring DevTools -->
@@ -51,6 +69,13 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+	   <!-- Spring Configuration Processor -->
+	   <dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-configuration-processor</artifactId>
+    		<optional>true</optional>
+	   </dependency>
+	   
 		<!-- Spring Open API Documentation-->				
 		<dependency>
 		    <groupId>org.springdoc</groupId>
@@ -85,14 +110,7 @@
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<scope>test</scope>
-	   </dependency>	
-	   
-	   <!-- Spring Configuration Processor -->
-	   <dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-configuration-processor</artifactId>
-    		<optional>true</optional>
-	   </dependency>
+	   </dependency>		  
 	</dependencies>
 
 	<build>
@@ -112,15 +130,7 @@
 			<plugin>
 			    <groupId>org.jacoco</groupId>
 			    <artifactId>jacoco-maven-plugin</artifactId>
-			    <version>${jacoco.version}</version>
-				<configuration>
-                	<excludes>
-                    	<exclude>**/config/**</exclude>
-                    	<exclude>**/model/**</exclude>
-                    	<exclude>**/item/**</exclude>
-                    	<exclude>**/*DTO.*</exclude>
-                	</excludes>
-            	</configuration>			    
+			    <version>${jacoco.version}</version>		    
 			    <executions>
 			        <execution>
 			            <id>jacoco-initialize</id>
@@ -134,7 +144,7 @@
 			            <goals>
 			                <goal>report</goal>
 			            </goals>
-			        </execution>
+			        </execution>		        
 			    </executions>
 			</plugin>			
 		</plugins>

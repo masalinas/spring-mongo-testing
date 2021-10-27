@@ -14,12 +14,12 @@ public class GlobalControllerExceptionHandler {
 	@ExceptionHandler(ProductNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleProductNotFound(RuntimeException ex) {
-        return new ResponseEntity<String>("Error: " + ex.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Error: " + ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	ResponseEntity<String> handleException(ConstraintViolationException e){
-		return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 }
